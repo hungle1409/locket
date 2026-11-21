@@ -1,11 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════════
-🎭  LOCKET REMOTE CONFIG REWRITE — GOLD & VIP UNLOCKER 👑
-─────────────────────────────────────────────────────────────────────
-👤  Tác giả      :  ThaiDev09
-📡  Endpoint     :  firebaseremoteconfig.googleapis.com
-🧩  Hỗ trợ       :  Loon • Quantumult X • Surge • Shadowrocket
-💎  Phiên bản    :  Custom Filter UI + Full Unlock
-═══════════════════════════════════════════════════════════════════════ */
 /* ─────────────────────────  🔧 KHỞI TẠO & CHỐNG CACHE  ───────────────────────── */
 let obj = {};
 try { obj = JSON.parse($response.body) || {}; } catch (e) { obj = {}; }
