@@ -4,8 +4,6 @@ try {
 } catch (e) { 
     obj = {}; 
 }
-
-// Nếu dữ liệu không hợp lệ, tạo cấu trúc rỗng để tránh crash
 if (!obj || typeof obj !== "object") {
     obj = { subscriber: { subscriptions: {}, entitlements: {} } };
 }
@@ -47,7 +45,6 @@ obj.subscriber = obj.subscriber || {};
 obj.subscriber.subscriptions = obj.subscriber.subscriptions || {};
 obj.subscriber.entitlements = obj.subscriber.entitlements || {};
 
-// Kích hoạt Locket Gold
 const goldProduct = "locket_1600_1y";
 obj.subscriber.subscriptions[goldProduct] = makeSub(goldProduct, 399000.0, "VND");
 obj.subscriber.entitlements["Gold"] = makeEnt(goldProduct);
