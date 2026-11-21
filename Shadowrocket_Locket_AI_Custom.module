@@ -1,0 +1,13 @@
+#!name=Locket AI Custom - My Filter Groups
+#!desc=Example to group existing Locket AI filter IDs. Needs your hosted JS URL; does NOT create or unlock AI filters.
+#!system=ios
+
+[Script]
+# STEP 1: Upload locket_custom_ai.js to YOUR OWN trusted GitHub repository.
+# STEP 2: Replace USERNAME and REPO in script-path with your GitHub values.
+# STEP 3: Change enable=false to enable=true only after reviewing the script.
+locket_custom_groups = type=http-response,pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+,script-path=https://raw.githubusercontent.com/USERNAME/REPO/main/locket_custom_ai.js,requires-body=true,max-size=1048576,timeout=15,enable=false
+
+[MITM]
+# Enable HTTPS Decryption only for domains you have reviewed and authorized.
+hostname = %APPEND% firebaseremoteconfig.googleapis.com
