@@ -1,58 +1,17 @@
 # ═══════════════════════════════════════════════════════════════════════
-#  [Rule]  — Chặn quảng cáo video qua UDP
-# ═══════════════════════════════════════════════════════════════════════
-[Rule]
-AND,((DOMAIN-SUFFIX,googlevideo.com),(PROTOCOL,UDP)),REJECT
-AND,((DOMAIN,youtubei.googleapis.com),(PROTOCOL,UDP)),REJECT
-
-# ═══════════════════════════════════════════════════════════════════════
-#  [Header Rewrite] — Xóa cache RevenueCat & Spotify
-# ═══════════════════════════════════════════════════════════════════════
-[Header Rewrite]
-^https?://api\.revenuecat\.com/.+/(receipts$|subscribers/?(.*?)*$) header-del x-revenuecat-etag
-^https?://api\.revenuecat\.com/.+/(receipts$|subscribers/?(.*?)*$) header-del X-RevenueCat-ETag
-http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
-
-# ═══════════════════════════════════════════════════════════════════════
-#  [Url Rewrite] — Chặn quảng cáo YouTube / Google Video
-# ═══════════════════════════════════════════════════════════════════════
-[Url Rewrite]
-^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad reject-200
-^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads reject-200
-^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) reject-200
-^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext reject-200
-(^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+) $1$2$3 302
-
-# ═══════════════════════════════════════════════════════════════════════
-#  [Script] — Tổng hợp script theo nhóm app (ĐÃ SỬA PATTERN)
+#  [Script] — ĐÃ SỬA LINK TRỎ ĐÚNG VỀ REPO hunble1409/locket
 # ═══════════════════════════════════════════════════════════════════════
 [Script]
 
-# ┌───────────────────────────────────────────────────────────────────┐
-# │ 🎭  LOCKET — GOLD + AI FILTER + REMOTE CONFIG (FIXED PATTERNS)    │
-# └───────────────────────────────────────────────────────────────────┘
 # 1️⃣ Xóa header cache RevenueCat
-locket_delete_header = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/deleteheader.js, timeout=60
+locket_delete_header = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/deleteheader.js, timeout=60
 
 # 2️⃣ RevenueCat Response — cấp subscription Gold
-locket_gold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/revenuecat.js, timeout=60
+locket_gold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/revenuecat.js, timeout=60
 
-# 3️⃣ Remote Config — bật toàn bộ feature (ĐÃ SỬA PATTERN ĐỂ BẮT ĐÚNG PROJECT ID)
-locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locket.js, timeout=60
+# 3️⃣ Remote Config — bật toàn bộ feature
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locket.js, timeout=60
 
-# 4️⃣ AI Filter + Community VIP Network (ĐÃ SỬA PATTERN ĐỂ BẮT CẢ locketcam.com)
-locket_filter_req  = type=http-request,  pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locketfilter.js, timeout=60
-locket_filter_resp = type=http-response, pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locketfilter.js, timeout=60
-
-# ┌───────────────────────────────────────────────────────────────────┐
-# │ 🌐  SUB-STORE (Proxy tool)                                        │
-# └───────────────────────────────────────────────────────────────────┘
-Sub-Store Core = type=http-request, pattern=^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))), requires-body=true, timeout=120, script-path=https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-1.min.js
-Sub-Store Simple = type=http-request, pattern=^https?:\/\/sub\.store, requires-body=true, script-path=https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-0.min.js
-Sub-Store Sync = type=cron, cronexp=0 0 * * *, wake-system=1, timeout=120, script-path=https://github.com/sub-store-org/Sub-Store/releases/latest/download/cron-sync-artifacts.min.js
-
-# ═══════════════════════════════════════════════════════════════════════
-#  [MITM] — Bật HTTPS Decryption
-# ═══════════════════════════════════════════════════════════════════════
-[MITM]
-hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, api.locketcam.com, *.googlevideo.com, youtubei.googleapis.com, www.youtube.com, s.youtube.com, -redirector*.googlevideo.com, sub.store, api-mobile.soundcloud.com, spclient.wg.spotify.com, *spclient.spotify.com, service.ilovepdf.com, lcs-mobile-cops.adobe.io, api.picsart.c*, api.meiease.c*, piccollage.com, pro.smallpdf.com, buy.itunes.apple.com, us-central1-alight-creative.cloudfunctions.net, premium*.truecaller.com
+# 4️⃣ AI Filter + Community VIP Network
+locket_filter_req  = type=http-request,  pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locketfilter.js, timeout=60
+locket_filter_resp = type=http-response, pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locketfilter.js, timeout=60
