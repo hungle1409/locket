@@ -8,7 +8,6 @@ obj.entries = obj.entries || {};
 obj.entries.cache_ttl_seconds = "0";
 obj.entries.client_cache_ttl_sec = "0";
 
-// 1. MỞ KHÓA TÍNH NĂNG (Đã sửa JSON.stringify và xóa hết khoảng trắng thừa)
 Object.assign(obj.entries, {
     feature_gates: JSON.stringify({ 
         app_icon_picker: "enabled", camera_roll: "enabled", camera_theme: "enabled",
@@ -51,14 +50,12 @@ Object.assign(obj.entries, {
     profile_badge_visible: "true", lunar_new_year_app_icon_enabled: "true"
 });
 
-// 2. CHẶN QUẢNG CÁO & TRACKING
 Object.assign(obj.entries, { 
     history_ads_mode: "off", history_ads_prefetch_count: "0",
     sentry_sample_rate: "0", sentry_network_tracing: "false",
     sentry_performance_tracking: "false", sentry_trace_sample_rate: "0" 
 });
 
-// 3. CAMERA & VIDEO 60s CÓ TIẾNG
 const MY_VIDEO_DURATION = 60.0;
 const MAX_SIZE_BYTES = 104857600;
 const durationStr = MY_VIDEO_DURATION.toString();
@@ -94,7 +91,6 @@ Object.assign(obj.entries, {
     video_quality_mbps: "0.2", video_sound_enabled: "true", microphone_enabled: "true"
 });
 
-// 4. BẠN BÈ & MOMENTS
 Object.assign(obj.entries, { 
     max_friends_count: "999999", friend_limit_mode: "0",
     soft_friend_limit_threshold_count: "999999", show_friend_limit_on_cam: "false",
@@ -108,7 +104,6 @@ Object.assign(obj.entries, {
     groups_enabled: "true", rollcall_enabled: "true" 
 });
 
-// 5. WIDGET & CUSTOMIZATION
 Object.assign(obj.entries, {
     custom_widget_frames: "enabled", custom_widget_frames_enabled: "true",
     widget_frames_config: JSON.stringify({ 

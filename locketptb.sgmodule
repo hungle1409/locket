@@ -1,17 +1,11 @@
-# ═══════════════════════════════════════════════════════════════════════
-#  [Script] — ĐÃ SỬA LINK TRỎ ĐÚNG VỀ REPO hunble1409/locket
-# ═══════════════════════════════════════════════════════════════════════
+
+
+[MITM]
+hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, api.locketcam.com
+
 [Script]
-
-# 1️⃣ Xóa header cache RevenueCat
 locket_delete_header = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/deleteheader.js, timeout=60
-
-# 2️⃣ RevenueCat Response — cấp subscription Gold
 locket_gold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/revenuecat.js, timeout=60
-
-# 3️⃣ Remote Config — bật toàn bộ feature
 locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locket.js, timeout=60
-
-# 4️⃣ AI Filter + Community VIP Network
 locket_filter_req  = type=http-request,  pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locketfilter.js, timeout=60
 locket_filter_resp = type=http-response, pattern=^https:\/\/api\.locketcam(era)?\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locketfilter.js, timeout=60
