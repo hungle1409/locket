@@ -1,7 +1,7 @@
 const VIP_STORE_KEY = "LOCKET_VIP_COMMUNITY";
 const SELF_UID_KEY = "LOCKET_SELF_UID";
 const SELF_USERNAME_KEY = "LOCKET_SELF_USERNAME";
-const BASE_VIP_USERS = ["hungle1409"];
+const BASE_VIP_USERS = ["thaidev09"];
 
 function applyGoldBadge(target) {
     if (!target || typeof target !== "object") return;
@@ -33,8 +33,6 @@ if (typeof $response === "undefined") {
 } else {
     let body = $response.body;
     let status = $response.status || $response.statusCode || 200;
-    const customArg = (typeof $argument === "string" && $argument.trim()) ? $argument.trim().toLowerCase() : "";
-    const unlockAllFriends = customArg.includes("all_friends=true") || customArg.includes("gold_all=true");
     const vipSet = new Set(BASE_VIP_USERS.map(u => String(u).toLowerCase().trim()));
     
     if (typeof $persistentStore !== "undefined") {
@@ -53,27 +51,23 @@ if (typeof $response === "undefined") {
                 if (!node || typeof node !== "object") return;
                 if (Array.isArray(node)) { for (let i = 0; i < node.length; i++) transformNode(node[i]); return; }
                 
-                const isSelf = ("email" in node) || ("phone_number" in node) || ("push_token" in node) || ("can_use_filters" in node);
+                const isSelf = ("email" in node) || ("phone_number" in node) || ("push_token" in node);
                 if (isSelf) {
                     applyGoldBadge(node);
-                    node.can_use_filters = true; node.can_use_gold_features = true; node.can_use_stickers = true;
                     const uid = String(node.uid || node.user_id || node.id || "").toLowerCase().trim();
                     const username = String(node.username || "").toLowerCase().trim();
                     if (typeof $persistentStore !== "undefined") { if (uid) $persistentStore.write(uid, SELF_UID_KEY); if (username) $persistentStore.write(username, SELF_USERNAME_KEY); }
                     if (uid) vipSet.add(uid); if (username) vipSet.add(username);
                 } else {
-                    if (unlockAllFriends || isNodeVip(node, vipSet)) {
+                    if (isNodeVip(node, vipSet)) {
                         applyGoldBadge(node);
                         if (node.user && typeof node.user === "object") applyGoldBadge(node.user);
                         if (node.friend && typeof node.friend === "object") applyGoldBadge(node.friend);
                     }
                 }
 
-                ["is_locked", "locked", "requires_gold", "require_gold", "gold_only", "is_gold_only", "paywall", "show_paywall", "show_upsell", "upsell", "blurred", "is_blurred", "needs_gold"].forEach(f => { if (f in node) node[f] = false; });
-                ["can_view", "unlocked", "is_unlocked", "is_free", "free", "can_use_filter", "allowed", "can_use_filters", "can_use_stickers", "sticker_access", "is_available", "enabled"].forEach(t => { if (t in node) node[t] = true; });
-                if ("item_type" in node || "sticker_id" in node || "filter_id" in node) { node.is_locked = false; node.requires_gold = false; node.unlocked = true; node.is_free = true; }
-
-                const clearUrl = node.unblurred_url || node.unlocked_url || node.result_url || node.image_url || node.transformed_image_url || node.url;
+                // Gỡ mờ ảnh (Unblur)
+                const clearUrl = node.unblurred_url || node.unlocked_url || node.result_url || node.image_url || node.url;
                 if (clearUrl && typeof clearUrl === "string" && clearUrl.startsWith("http")) {
                     if ("blurred_url" in node) node.blurred_url = clearUrl;
                     if ("blurred_image_url" in node) node.blurred_image_url = clearUrl;

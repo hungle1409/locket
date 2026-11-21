@@ -5,11 +5,11 @@ if (!obj || typeof obj !== "object") {
 }
 
 const FAR_FUTURE = "9999-01-09T10:10:14Z";
-const PAST = "2020-01-01T10:10:14Z";
+const PAST = "2023-01-01T10:10:14Z"; // Đã sửa thành ngày trong quá khứ hợp lệ
 
 function makeSub(p, a, c) { 
     return { 
-        auto_resume_date: null, display_name: p, is_sandbox: false, 
+        auto_resume_date: null, display_name: p, is_sandbox: false, // is_sandbox: false để server chấp nhận
         ownership_type: "PURCHASED", billing_issues_detected_at: null, 
         management_url: "https://apps.apple.com/account/subscriptions", 
         period_type: "normal", price: { amount: a, currency: c }, 
