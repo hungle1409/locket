@@ -8,7 +8,7 @@ obj.entries = obj.entries || {};
 obj.entries.cache_ttl_seconds = "0";
 obj.entries.client_cache_ttl_sec = "0";
 
-// 1. MỞ KHÓA TÍNH NĂNG (Đã xóa hết khoảng trắng thừa và sửa lỗi chính tả)
+// 1. MỞ KHÓA TÍNH NĂNG (Đã sửa JSON.stringify và xóa hết khoảng trắng thừa)
 Object.assign(obj.entries, {
     feature_gates: JSON.stringify({ 
         app_icon_picker: "enabled", camera_roll: "enabled", camera_theme: "enabled",
@@ -43,7 +43,7 @@ Object.assign(obj.entries, {
     feature_discovery_popup_config: JSON.stringify({ 
         tag: "LOCKET GOLD", tag_gradient: true, tag_style: "gold_gradient",
         title: "Len LocketGold roi do 🤫 😎",
-        feature_set: [{ title: "Mod by ThaiDev09 ✨", body: "Tele: @devmmo14 💛", imageURL: "" }],
+        feature_set: [{ title: "✨", body: "💛", imageURL: "" }],
         primary_button_title: "Xong", campaign: "locket_gold_welcome_v3",
         start_at: "2020-01-01T00:00:00", end_at: "2099-12-31T23:59:59", use_local_time_zone: true 
     }),
@@ -94,7 +94,7 @@ Object.assign(obj.entries, {
     video_quality_mbps: "0.2", video_sound_enabled: "true", microphone_enabled: "true"
 });
 
-// 4. BẠN BÈ & MOMENTS (Đã bật moment_views)
+// 4. BẠN BÈ & MOMENTS
 Object.assign(obj.entries, { 
     max_friends_count: "999999", friend_limit_mode: "0",
     soft_friend_limit_threshold_count: "999999", show_friend_limit_on_cam: "false",
