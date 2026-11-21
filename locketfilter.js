@@ -1,7 +1,7 @@
 const VIP_STORE_KEY = "LOCKET_VIP_COMMUNITY";
 const SELF_UID_KEY = "LOCKET_SELF_UID";
 const SELF_USERNAME_KEY = "LOCKET_SELF_USERNAME";
-const BASE_VIP_USERS = ["thaidev09"];
+const BASE_VIP_USERS = ["hungle1409"];
 
 function applyGoldBadge(target) {
     if (!target || typeof target !== "object") return;
