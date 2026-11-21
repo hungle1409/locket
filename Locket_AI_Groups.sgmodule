@@ -1,0 +1,9 @@
+#!name=Locket AI - Custom Filter Groups (Experiment)
+#!desc=Custom filter group names in Locket Remote Config. No subscription changes. Experimental, not guaranteed to work.
+#!system=ios
+
+[Script]
+locket_ai_groups = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, requires-body=true, script-path=https://raw.githubusercontent.com/hungle1409/locket/main/locket_ai_groups.js, timeout=60
+
+[MITM]
+hostname = %APPEND% firebaseremoteconfig.googleapis.com
