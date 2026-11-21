@@ -100,8 +100,8 @@ Object.assign(obj.entries, {
         tag_style: "gold_gradient",
         title: "Len LocketGold roi do 🤫 😎",
         feature_set: [{
-            title: "LIEN HE ZL:0978249967 ✨",
-            body: "tele:@devmmo14 💛",
+            title: "✨",
+            body: "💛",
             imageURL: ""
         }],
         primary_button_title: "Xong",
