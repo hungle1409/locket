@@ -46,8 +46,8 @@ Object.assign(obj.entries, {
     feature_discovery_popup_config: JSON.stringify({ 
         tag: "LOCKET GOLD", tag_gradient: true, tag_style: "gold_gradient",
         title: "Len LocketGold roi do 🤫 😎",
-        feature_set: [{ title: "Mod by ThaiDev09 ✨", body: "Tele: @devmmo14 💛", imageURL: "" }],
-        primary_button_title: "Xong", campaign: "locket_gold_welcome_v3",
+        feature_set: [{ title: " ✨", body: "", imageURL: "" }],
+        primary_button_title: "Xong", campaign: "",
         start_at: "2020-01-01T00:00:00", end_at: "2099-12-31T23:59:59", use_local_time_zone: true 
     }),
     android_subscribe_gold_button_enabled: "false", 
