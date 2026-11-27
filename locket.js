@@ -132,7 +132,7 @@ Object.assign(obj.entries, {
         widget_looping_mode: "never"
     }),
     camera_filter_config: JSON.stringify({
-        allows_custom_filters: true, show_filter_button: true,
+        allows_custom_filters: true, show_filter_button: false,
         sheet_enabled: true, open_sheet_immediately: true,
         sheet_filters: [
             { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
