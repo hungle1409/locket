@@ -366,7 +366,7 @@ Object.assign(obj.entries, {
     overlay_items: JSON.stringify([
         /* ── 🎨 Nhóm cơ bản của Locket ─────────────────────────────── */
         {
-            section: "🎨 Hoangtien07",
+            section: "🎨",
             items: [
                 { overlay_id: "caption:standard", source: "local", caption: { type: "standard" } },
                 { overlay_id: "caption:link", source: "local", caption: { type: "link" }, overlay_type: "caption" },
