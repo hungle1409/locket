@@ -39,17 +39,17 @@ http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:4
 # │ 🎭  LOCKET — GOLD + AI FILTER + REMOTE CONFIG                     │
 # └───────────────────────────────────────────────────────────────────┘
 # 1️⃣ Xóa header cache RevenueCat (buộc server trả body mới thay vì 304)
-locket_delete_header = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/deleteheader.js, timeout=60
+locket_delete_header = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/hungle1409/locket/refs/heads/main/deleteheader.js, timeout=60
 
 # 2️⃣ RevenueCat Response — cấp subscription Gold (locket_1600_1y)
-locket_gold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/revenuecat.js, requires-body=true, max-size=-1, timeout=60
+locket_gold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/hungle1409/locket/refs/heads/main/revenuecat.js, requires-body=true, max-size=-1, timeout=60
 
 # 3️⃣ Remote Config — bật toàn bộ feature (widget, filter, caption, gold gates)
-locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locket.js, requires-body=true, max-size=-1, timeout=60
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/hungle1409/locket/refs/heads/main/locket.js, requires-body=true, max-size=-1, timeout=60
 
 # 4️⃣ AI Filter + Community VIP Network (request + response — 2 script cùng file)
-locket_filter_req  = type=http-request,  pattern=^https:\/\/api\.locketcamera\.com\/.+, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locketfilter.js?v=20261010_0230, timeout=60
-locket_filter_resp = type=http-response, pattern=^https:\/\/api\.locketcamera\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/sb-doanthai/Locket2/refs/heads/main/locketfilter.js?v=20261010_0230, timeout=60
+locket_filter_req  = type=http-request,  pattern=^https:\/\/api\.locketcamera\.com\/.+, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/refs/heads/main/locketfilter.js?v=20261010_0230, timeout=60
+locket_filter_resp = type=http-response, pattern=^https:\/\/api\.locketcamera\.com\/.+, requires-body=true, max-size=-1, script-path=https://raw.githubusercontent.com/hungle1409/locket/refs/heads/main/locketfilter.js?v=20261010_0230, timeout=60
 
 # ┌───────────────────────────────────────────────────────────────────┐
 # │ 🌐  SUB-STORE (Proxy tool)                                        │
